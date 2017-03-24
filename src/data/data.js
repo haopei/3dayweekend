@@ -1,19 +1,23 @@
 export const holidays = [
-    { primaryName: "New Year's Day", month: [1], day: 1, secondaryName: "" },
-    { primaryName: "Republic Day", month: [2], day: 23, secondaryName: "" },
-    { primaryName: "Phagwah", month: [2, 3], day: null, secondaryName: "" },
-    { primaryName: "Good Friday", month: [3, 4], day: null, secondaryName: "" },
-    { primaryName: "Labour Day", month: [5], day: 1, secondaryName: "" },
-    { primaryName: "Arrival Day", month: [5], day: 5, secondaryName: "" },
-    { primaryName: "Independence Day", month: [5], day: 26, secondaryName: "" },
-    { primaryName: "Caricom Day", month: [7], day: null , secondaryName: "" },
-    { primaryName: "Emancipation Day", month: [8], day: 1, secondaryName: "" },
-    { primaryName: "Diwali", month: [10, 11], day: null, secondaryName: "Deepavali" },
-    { primaryName: "Christmas Day", month: [12], day: 25, secondaryName: "X-Mas Day" },
-    { primaryName: "Boxing Day", month: [12], day: 26, secondaryName: "" },
-    { primaryName: "Youman-Nabi", month: null, day: null, secondaryName: "" },
-    { primaryName: "Eid-ul-Adha", month: null, day: null, secondaryName: "" }
+    { name: "New Year's Day", month: [1], day: 1 },
+    { name: "Republic Day", month: [2], day: 23 },
+    { name: "Labour Day", month: [5], day: 1 },
+    { name: "Arrival Day", month: [5], day: 5 },
+    { name: "Independence Day", month: [5], day: 26 },
+    { name: "Emancipation Day", month: [8], day: 1 },
+    { name: "Christmas Day", month: [12], day: 25, altName: "X-Mas Day" },
+    { name: "Boxing Day", month: [12], day: 26 }
 ]
+
+export const dynamicHolidays = [
+    { name: "Phagwah", month: [2, 3], day: null },
+    { name: "Good Friday", month: [3, 4], day: null },
+    { name: "Caricom Day", month: [7], day: null },
+    { name: "Diwali", month: [10, 11], day: null, altName: "Deepavali" },
+    { name: "Youman-Nabi", month: null, day: null },
+    { name: "Eid-ul-Adha", month: null, day: null }
+]
+
 
 // Dynamic days
 //
