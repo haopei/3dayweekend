@@ -1,7 +1,7 @@
 <template lang="html">
 
     <div>
-        <div v-for="holiday in all3DayWeekends">
+        <div v-for="holiday in upcoming3DayWeekends">
             {{ holiday.name }} ({{holiday.dayName}}: {{ holiday.fullDate | human-friendly-date }})
         </div>
 
@@ -20,20 +20,32 @@ export default {
     data() {
         return {
             allHolidays: [],
-            all3DayWeekends: []
+            all3DayWeekends: [],
+            upcoming3DayWeekends: []
+        }
+    },
+    computed: {
+        today: function() {
+            return moment();
         }
     },
     methods: {
         initHolidays() {
             this.allHolidays = holidays;
         },
-        get3DayWeekends() {
+        getAll3DayWeekends() {
             // returns holidays which are on Friday, Sunday or Monday
             let days = ['Friday', 'Sunday', 'Monday'];
             this.allHolidays.forEach(holiday => {
                 if (days.includes(this.getDayOfHoliday(holiday.fullDate))) {
                     this.all3DayWeekends.push(holiday);
                 }
+            })
+        },
+        getUpcoming3DayWeekends() {
+            this.upcoming3DayWeekends = this.all3DayWeekends.filter(holiday => {
+                console.log(holiday.fullDate > this.today);
+                return holiday.fullDate > this.today;
             })
         },
         sortHolidays() {
@@ -63,7 +75,8 @@ export default {
         this.initHolidays();
         this.transformIntoMomentObject(this.allHolidays);
         this.sortHolidays();
-        this.get3DayWeekends();
+        this.getAll3DayWeekends();
+        this.getUpcoming3DayWeekends();
     },
     filters: {
         'human-friendly-date'(value) {
