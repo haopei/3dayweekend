@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>Next 3 Day Weekend</h1>
+    <!-- <h1>3 Day Weekends</h1> -->
     <next-holiday-card></next-holiday-card>
   </div>
 </template>

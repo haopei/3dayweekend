@@ -1,13 +1,17 @@
 <template lang="html">
-
     <div>
+        <h1>Upcoming 3 Day Weekends</h1>
+        <!-- <div class="next-3day-weekend">
+            <h1>{{ next3DayWeekend.name }}</h1>
+            <p>{{next3DayWeekend.dayName}}, {{next3DayWeekend.fullDate | human-friendly-date}}</p>
+        </div> -->
         <div v-for="holiday in upcoming3DayWeekends">
-            {{ holiday.name }} ({{holiday.dayName}}: {{ holiday.fullDate | human-friendly-date }})
+            <div class="day">
+                <h3>{{ holiday.name }}</h3>
+                 <small>{{holiday.dayName}}, {{ holiday.fullDate | human-friendly-date }}</small>
+            </div>
         </div>
-
-
     </div>
-
 </template>
 
 <script>
@@ -21,11 +25,12 @@ export default {
         return {
             allHolidays: [],
             all3DayWeekends: [],
-            upcoming3DayWeekends: []
+            upcoming3DayWeekends: [],
+            next3DayWeekend: {}
         }
     },
     computed: {
-        today: function() {
+        today() {
             return moment();
         }
     },
@@ -34,7 +39,7 @@ export default {
             this.allHolidays = holidays;
         },
         getAll3DayWeekends() {
-            // returns holidays which are on Friday, Sunday or Monday
+            // returns all past and future holidays which are on Friday, Sunday or Monday
             let days = ['Friday', 'Sunday', 'Monday'];
             this.allHolidays.forEach(holiday => {
                 if (days.includes(this.getDayOfHoliday(holiday.fullDate))) {
@@ -43,10 +48,14 @@ export default {
             })
         },
         getUpcoming3DayWeekends() {
+            // returns a list of 3 day weekends, which are after today
             this.upcoming3DayWeekends = this.all3DayWeekends.filter(holiday => {
-                console.log(holiday.fullDate > this.today);
                 return holiday.fullDate > this.today;
             })
+        },
+        getNext3DayWeekend() {
+            // returns the one upcoming 3 day weekend
+            this.next3DayWeekend = this.upcoming3DayWeekends[0];
         },
         sortHolidays() {
             // Sort holidays by earliest
@@ -71,20 +80,27 @@ export default {
             return holidayDate.format('dddd');
         }
     },
-    mounted() {
+    created() {
         this.initHolidays();
         this.transformIntoMomentObject(this.allHolidays);
         this.sortHolidays();
         this.getAll3DayWeekends();
         this.getUpcoming3DayWeekends();
+        this.getNext3DayWeekend();
     },
     filters: {
         'human-friendly-date'(value) {
             return value.format('DD MMM, YYYY');
+        },
+        'without-head'(value) {
+            return value.splice(0, 1);
         }
     }
 }
 </script>
 
 <style lang="css">
+h3 {
+    margin-bottom: 0
+}
 </style>
