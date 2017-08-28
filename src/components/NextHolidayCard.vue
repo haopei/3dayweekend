@@ -11,6 +11,7 @@
                  <small>{{holiday.dayName}}, {{ holiday.fullDate | human-friendly-date }}</small>
             </div>
         </div>
+        <br>
     </div>
 </template>
 
